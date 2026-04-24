@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scout — AI Screenshot Assistant for Chrome</title>
+  <meta name="description" content="Capture any browser tab and ask AI anything about what you see. No technical skills required." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #4ade80;
+      --green-dark: #22c55e;
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #f0f0f0;
+      --muted: #888;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+.nav-cta {
+      background: var(--green);
+      color: #0f0f0f;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--green-dark); text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 100px 20px 80px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(74, 222, 128, 0.12);
+      color: var(--green);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span { color: var(--green); }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green);
+      color: #0f0f0f;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 16px 32px;
+      border-radius: 10px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .hero-cta:hover { background: var(--green-dark); text-decoration: none; transform: translateY(-1px); }
+
+    .hero-sub {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* HOW IT WORKS */
+    .section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 56px;
+      letter-spacing: -0.01em;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: var(--green);
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 0.9rem; color: var(--muted); }
+
+    /* USE CASES */
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .use-case {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .use-case-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .use-case h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .use-case p { font-size: 0.88rem; color: var(--muted); }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .plan {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+
+    .plan.featured {
+      border-color: var(--green);
+      position: relative;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: #0f0f0f;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--muted); }
+    .plan-price { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .plan-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features li {
+      font-size: 0.9rem;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+    .plan-features li:last-child { border-bottom: none; }
+    .plan-features li .check { color: var(--green); font-weight: 700; }
+
+    .plan-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .plan-btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .plan-btn-outline:hover { border-color: var(--green); color: var(--green); text-decoration: none; }
+
+    .plan-btn-filled {
+      background: var(--green);
+      color: #0f0f0f;
+    }
+    .plan-btn-filled:hover { background: var(--green-dark); text-decoration: none; }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 60px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="icon128.png" alt="Scout" style="width:32px;height:32px;border-radius:8px;" />
+      Scout
+    </a>
+    <a href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg" target="_blank" class="nav-cta">Add to Chrome — Free</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="icon128.png" alt="Scout" style="width:100px;height:100px;border-radius:22px;margin-bottom:28px;" />
+    <h1>Your <span>AI screenshot</span><br>assistant for Chrome</h1>
+    <p>Capture any browser tab and ask AI anything about what you see — no technical skills required.</p>
+    <div class="hero-badge">Now available on the Chrome Web Store</div>
+    <p class="hero-sub">Free plan available · No credit card required</p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <p class="section-label">How it works</p>
+    <h2>Three steps, zero friction</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Capture</h3>
+        <p>Click the Scout button to screenshot any tab — or capture the full page automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Ask</h3>
+        <p>Type any question about what's on screen. Summarize, extract, compare, explain.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Get answers</h3>
+        <p>AI responds instantly in a side panel — right next to your browser, not in a new tab.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- USE CASES -->
+  <section class="section">
+    <p class="section-label">Use cases</p>
+    <h2>What can you do with Scout?</h2>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="use-case-icon">📊</div>
+        <h3>Analyze data & charts</h3>
+        <p>Paste a screenshot of any graph or table and ask Scout to explain the trends.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">📄</div>
+        <h3>Summarize long pages</h3>
+        <p>Capture a full article or report and get a clean summary in seconds.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🛒</div>
+        <h3>Compare products</h3>
+        <p>Screenshot multiple product pages and ask Scout to compare features and prices.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🐛</div>
+        <h3>Debug errors</h3>
+        <p>Capture error messages or code and ask Scout what's wrong and how to fix it.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">✍️</div>
+        <h3>Extract text & data</h3>
+        <p>Pull tables, lists, or text from any page — even if it's not selectable.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🔍</div>
+        <h3>Research anything</h3>
+        <p>Ask Scout to explain, translate, or expand on anything you're looking at.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PRICING -->
+  <section class="section">
+    <p class="section-label">Pricing</p>
+    <h2>Start free, upgrade when ready</h2>
+    <div class="pricing-grid">
+
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0 <span>/ forever</span></div>
+        <div class="plan-desc">Get started with no commitment.</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 5 scans per day</li>
+          <li><span class="check">✓</span> 3 screenshots per scan</li>
+          <li><span class="check">✓</span> Claude Haiku AI model</li>
+          <li><span class="check">✓</span> 1 custom prompt</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg" target="_blank" class="plan-btn plan-btn-outline">Get started free</a>
+      </div>
+
+      <div class="plan featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$8 <span>/ month</span></div>
+        <div class="plan-desc">For daily users who need more power.</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 15 scans per day</li>
+          <li><span class="check">✓</span> 10 screenshots per scan</li>
+          <li><span class="check">✓</span> Claude Sonnet AI model</li>
+          <li><span class="check">✓</span> 3 custom prompts</li>
+          <li><span class="check">✓</span> Extended full-page capture</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg" target="_blank" class="plan-btn plan-btn-filled">Get Pro</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Pro+</div>
+        <div class="plan-price">$18 <span>/ month</span></div>
+        <div class="plan-desc">For power users who want the best AI.</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 50 scans per day</li>
+          <li><span class="check">✓</span> 15 screenshots per scan</li>
+          <li><span class="check">✓</span> Claude Sonnet + Opus</li>
+          <li><span class="check">✓</span> 10 custom prompts</li>
+          <li><span class="check">✓</span> Extended full-page capture</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg" target="_blank" class="plan-btn plan-btn-outline">Get Pro+</a>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://scoutai-app.github.io/legal/terms.html">Terms of Service</a>
+      <a href="https://scoutai-app.github.io/legal/privacy.html">Privacy Policy</a>
+      <a href="mailto:scoutai.insights@gmail.com">Support</a>
+      <a href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg" target="_blank">Chrome Web Store</a>
+    </div>
+    <p>© 2026 Scout · Built for Chrome</p>
+  </footer>
+
+</body>
+</html>
