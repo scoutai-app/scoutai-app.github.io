@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Scout AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #faf9f6; line-height: 1.7; padding: 40px 20px; }
+    .container { max-width: 680px; margin: 0 auto; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; color: #111; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: #999; margin-bottom: 32px; }
+    h2 { font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: #222; }
+    h3 { font-size: 15px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; color: #333; }
+    p, li { font-size: 15px; color: #444; margin-bottom: 10px; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 6px; }
+    strong { color: #222; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 14px; }
+    th, td { text-align: left; padding: 8px 10px; border: 1px solid #ddd; }
+    th { background: #f0eeea; font-weight: 600; color: #333; }
+    td { color: #444; }
+    a { color: #3d7a5a; }
+    .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e0ddd6; font-size: 13px; color: #999; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">Scout — AI Screenshot Assistant</p>
+    <p class="updated">Last Updated: March 21, 2026</p>
+
+    <h2>1. Introduction</h2>
+    <p>Scout ("we," "our," or "the Extension") is a Chrome browser extension that analyzes screenshots using AI. This Privacy Policy explains what data we collect, how we use it, and your rights.</p>
+
+    <h2>2. Data We Collect</h2>
+
+    <h3>2.1 Account Information</h3>
+    <p>When you create an account, we collect:</p>
+    <ul>
+      <li><strong>Email address</strong> — to identify your account and communicate with you</li>
+      <li><strong>Password</strong> — stored securely using industry-standard hashing (handled by Supabase Auth)</li>
+    </ul>
+
+    <h3>2.2 Usage Data</h3>
+    <p>We track aggregate usage metrics:</p>
+    <ul>
+      <li>Number of scans per day</li>
+      <li>Your subscription tier</li>
+    </ul>
+    <p>We do <strong>not</strong> store the content of your prompts, screenshots, or AI responses on our servers.</p>
+
+    <h3>2.3 Payment Information</h3>
+    <p>If you subscribe to a paid plan, payment is processed by Stripe. We do not store your credit card number, CVV, or full payment details. We only store your Stripe customer ID and subscription ID to manage your account.</p>
+
+    <h2>3. Data We Do NOT Collect</h2>
+    <ul>
+      <li><strong>Screenshots</strong> — Your screenshots are sent directly to the AI for analysis and are not stored on our servers. They exist only in your browser's local storage.</li>
+      <li><strong>Conversations</strong> — All conversation history is stored locally in your browser using Chrome's storage API. We never have access to it.</li>
+      <li><strong>Browsing history</strong> — We do not track what websites you visit.</li>
+      <li><strong>Personal files</strong> — We do not access any files on your computer.</li>
+    </ul>
+
+    <h2>4. How We Use Your Data</h2>
+    <ul>
+      <li><strong>Account management</strong> — To authenticate you and manage your subscription</li>
+      <li><strong>Usage enforcement</strong> — To apply daily scan limits based on your tier</li>
+      <li><strong>Service improvement</strong> — Aggregate, anonymized usage statistics to improve the product</li>
+      <li><strong>Communication</strong> — To send important account-related emails (e.g., subscription changes, security alerts)</li>
+    </ul>
+    <p>We will never sell your data to third parties.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>Scout uses the following third-party services:</p>
+    <table>
+      <tr><th>Service</th><th>Purpose</th><th>Privacy Policy</th></tr>
+      <tr><td>Anthropic (Claude AI)</td><td>AI analysis of screenshots</td><td><a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a></td></tr>
+      <tr><td>Supabase</td><td>Authentication and usage tracking</td><td><a href="https://supabase.com/privacy">supabase.com/privacy</a></td></tr>
+      <tr><td>Stripe</td><td>Payment processing</td><td><a href="https://stripe.com/privacy">stripe.com/privacy</a></td></tr>
+    </table>
+    <p>When you submit a screenshot for analysis, it is sent to Anthropic's API for processing. Anthropic's data handling is governed by their privacy policy and API terms. Per Anthropic's API terms, data sent via the API is not used to train their models.</p>
+
+    <h2>6. Data Storage and Security</h2>
+    <ul>
+      <li>Account data is stored on Supabase (hosted on AWS in the US)</li>
+      <li>All data is transmitted over HTTPS (encrypted in transit)</li>
+      <li>Passwords are hashed using bcrypt (never stored in plain text)</li>
+      <li>Row-level security ensures users can only access their own data</li>
+      <li>Our API keys and secrets are stored in encrypted environment variables</li>
+    </ul>
+
+    <h2>7. Data Retention</h2>
+    <ul>
+      <li><strong>Account data</strong> — Retained as long as your account is active</li>
+      <li><strong>Usage statistics</strong> — Retained for 90 days for billing and analytics purposes</li>
+      <li><strong>Local data</strong> — Conversation history and screenshots stored in your browser can be deleted at any time by you through the extension or by clearing browser data</li>
+    </ul>
+
+    <h2>8. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> — Request a copy of your data</li>
+      <li><strong>Delete</strong> — Request deletion of your account and all associated data</li>
+      <li><strong>Export</strong> — Export your conversation history from the extension at any time</li>
+      <li><strong>Opt out</strong> — Delete your account to stop all data collection</li>
+    </ul>
+    <p>To exercise these rights, contact us at <a href="mailto:scoutai.insights@gmail.com">scoutai.insights@gmail.com</a>.</p>
+
+    <h2>9. Children's Privacy</h2>
+    <p>Scout is not intended for use by anyone under the age of 13. We do not knowingly collect data from children under 13. If we learn that we have collected data from a child under 13, we will delete it promptly.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will notify you of significant changes via email or through the extension. Continued use of Scout after changes constitutes acceptance of the updated policy.</p>
+
+    <h2>11. Contact</h2>
+    <p>If you have questions about this Privacy Policy, contact us at:<br><strong><a href="mailto:scoutai.insights@gmail.com">scoutai.insights@gmail.com</a></strong></p>
+
+    <div class="footer">
+      &copy; 2026 Scout AI. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
