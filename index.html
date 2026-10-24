@@ -113,7 +113,7 @@
     .fineprint span { display: inline-flex; align-items: center; gap: 6px; }
     .fineprint svg { width: 16px; height: 16px; color: var(--green); }
     .hero-shot { position: relative; }
-    .hero-shot img { border-radius: 14px; box-shadow: var(--shadow); }
+    .hero-shot img { width: 100%; }
     .hero-shot::before {
       content: ""; position: absolute; inset: 8% -6% -8% 10%; z-index: -1;
       background: radial-gradient(closest-side, rgba(22,163,74,.22), transparent);
@@ -158,9 +158,9 @@
     .feature-text li svg { width: 20px; height: 20px; color: var(--green); flex: none; margin-top: 3px; }
     .showcase {
       background: radial-gradient(120% 90% at 0% 0%, var(--mint) 0%, #f6faf7 45%, #eef2f0 100%);
-      border: 1px solid var(--line); border-radius: 22px; padding: 18px;
+      border: 1px solid var(--line); border-radius: 22px; padding: 10px;
     }
-    .showcase img { border-radius: 12px; }
+    .showcase img { width: 100%; }
 
     /* Audiences */
     .audiences { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -260,7 +260,6 @@
         <p class="lead">Capture any tab and get a clear answer in seconds. Summarize, compare, pull data and explain, right next to the page you're on.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/scout-ai-screenshot-assis/jmioahlgcgaldhflmkiljdekaegnhdbg?utm_source=scout-website&amp;utm_medium=hero">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 8h9M8.5 14l-4.5 7.8M15.5 14l-4.5 8" stroke="currentColor" stroke-width="2"/></svg>
             Add to Chrome — it's free
           </a>
           <a class="btn btn-ghost" href="#how">See how it works</a>
@@ -271,7 +270,7 @@
         </div>
       </div>
       <div class="hero-shot">
-        <img src="images/scout-1-summarize.jpg" width="795" height="725" alt="Scout's side panel next to a Wikipedia article, listing the page's four key takeaways" />
+        <img src="images/scout-1-summarize.webp" width="820" height="740" alt="Scout's side panel next to a Wikipedia article, listing the page's four key takeaways" />
       </div>
     </div>
   </header>
@@ -341,7 +340,7 @@
             <li><svg viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-page capture for long pages (Pro)</li>
           </ul>
         </div>
-        <div class="showcase"><img src="images/scout-1-summarize.jpg" width="795" height="725" loading="lazy" alt="Scout summarizing a Wikipedia article into four key takeaways" /></div>
+        <div class="showcase"><img src="images/scout-1-summarize.webp" width="820" height="740" loading="lazy" alt="Scout summarizing a Wikipedia article into four key takeaways" /></div>
       </div>
 
       <div class="feature flip">
@@ -354,7 +353,7 @@
             <li><svg viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Spot the differences without switching tabs</li>
           </ul>
         </div>
-        <div class="showcase"><img src="images/scout-2-compare.jpg" width="795" height="725" loading="lazy" alt="Scout comparing two cities from two captured tabs in one table" /></div>
+        <div class="showcase"><img src="images/scout-2-compare.webp" width="820" height="740" loading="lazy" alt="Scout comparing two cities from two captured tabs in one table" /></div>
       </div>
 
       <div class="feature">
@@ -367,7 +366,7 @@
             <li><svg viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Copy the answer or export it as a PDF</li>
           </ul>
         </div>
-        <div class="showcase"><img src="images/scout-3-extract.jpg" width="795" height="725" loading="lazy" alt="Scout turning a chart into a ranked table of numbers" /></div>
+        <div class="showcase"><img src="images/scout-3-extract.webp" width="820" height="740" loading="lazy" alt="Scout turning a chart into a ranked table of numbers" /></div>
       </div>
 
       <div class="feature flip">
@@ -380,7 +379,7 @@
             <li><svg viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Your conversations are saved in Scout</li>
           </ul>
         </div>
-        <div class="showcase"><img src="images/scout-4-explain.jpg" width="795" height="725" loading="lazy" alt="Scout explaining compound interest in plain English with an example table" /></div>
+        <div class="showcase"><img src="images/scout-4-explain.webp" width="820" height="740" loading="lazy" alt="Scout explaining compound interest in plain English with an example table" /></div>
       </div>
     </div>
   </section>
